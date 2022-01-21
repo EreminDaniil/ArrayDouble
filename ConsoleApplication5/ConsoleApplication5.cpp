@@ -10,25 +10,23 @@ public:
 		ArrSize = 0;
 		MemoryArrSize = MemorySize;
 	}
+
 	~ArrayDouble() // should clean up the storage 
 	{
 		delete[] Arr;
 	}
+
 	ArrayDouble(const ArrayDouble & other) // copy ctor 
 	{
-		if (other.ArrSize > ArrSize)
-		{
-			double* NewArr = new double[ArrSize];
-			MemoryArrSize = ArrSize;
-			delete[] Arr;
-			Arr = NewArr;
-		}
+		ArrSize = other.ArrSize;
+		MemoryArrSize = ArrSize * 2;
+		Arr = new double[MemoryArrSize];
 		for (size_t i = 0; i < other.ArrSize; i++)
 		{
 			Arr[i] = other.Arr[i];
 		}
-		ArrSize = other.ArrSize;
 	}
+		
 	ArrayDouble &operator=(const ArrayDouble &other) // copy assignment
 	{
 		if (other.ArrSize > MemoryArrSize)
@@ -44,51 +42,56 @@ public:
 		}
 		return *this;
 	}
+
 	size_t Count() const // returns number of elements in array
 	{
 		return ArrSize;
 	}
+
 	void Push(double d) // adds d to the end of the array, resising the storage if necessary
-	{ 
-		
+	{
 		if (ArrSize >= MemoryArrSize)
 		{
-			double* NewArr = new double[MemoryArrSize*2]; 
-										
-			for (size_t i = 0; i < ArrSize; i++)  
+			double* NewArr = new double[MemoryArrSize * 2];
+			for (size_t i = 0; i < ArrSize; i++)
 			{
 				NewArr[i] = Arr[i];
 			}
+			MemoryArrSize = MemoryArrSize * 2;
+			NewArr[ArrSize] = d;
 			ArrSize++;
-			NewMemoryArr = MemoryArrSize*2;
-			NewArr[ArrSize - 1] = d;
 			delete[] Arr;
 			Arr = NewArr;
 		}
 		else
 		{
 			Arr[ArrSize] = d;
-			ArrSize++; 
+			ArrSize++;
 		}
 		std::cout << "Array Push: " << d << std::endl;
 	}
+
 	double &operator[](size_t idx) // subscript operator overload to mutate the value at index idx
 	{
 		return *(Arr + idx);
 	}
+
 	const double &operator[](size_t idx) const // read only subscript operator overload
 	{
 		return *(Arr + idx);
 	}
+
 	bool IsEmpty() const // whether array has no elements
 	{
 		return ArrSize == 0;
 	}
+
 	void Clear() // removes all elements of the array, after that IsEmpty should return true
 	{
 		ArrSize = 0;
 		std::cout << "Array Clear " << std::endl;
 	}
+
 	void PrintInfo()
 	{
 		std::cout << "ArrSize: " << ArrSize << std::endl;
@@ -100,18 +103,13 @@ public:
 		std::cout << std::endl;
 	}
 
-// 	std::ostream &operator<<(std::ostream &out, const ArrayDouble &arr)
-// 	{
-// 		out << 
-// 		return out;
-// 	}
-
 private:
 	double *Arr; 
 	size_t ArrSize;
 	size_t MemoryArrSize;
 	size_t NewMemoryArr;
 };
+
 int main()
 {
 	ArrayDouble Array;
