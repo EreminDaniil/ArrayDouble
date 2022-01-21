@@ -1,5 +1,5 @@
 #include <iostream>
-using namespace std;
+
 class ArrayDouble
 {
 public:
@@ -16,6 +16,13 @@ public:
 	}
 	ArrayDouble(const ArrayDouble & other) // copy ctor 
 	{
+		if (other.ArrSize > ArrSize)
+		{
+			double* NewArr = new double[ArrSize];
+			MemoryArrSize = ArrSize;
+			delete[] Arr;
+			Arr = NewArr;
+		}
 		for (size_t i = 0; i < other.ArrSize; i++)
 		{
 			Arr[i] = other.Arr[i];
