@@ -147,7 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApplication5.cpp" />
+    <ClCompile Include="ArrayDoubleCorrect.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArrayDoubleCorrect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

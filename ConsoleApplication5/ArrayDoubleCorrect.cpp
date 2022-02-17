@@ -1,9 +1,7 @@
 #include <iostream>
+#include "ArrayDoubleCorrect.h"
 
-class ArrayDouble
-{
-public:
-	ArrayDouble()
+UArrayDouble::UArrayDouble()
 	{
 		int MemorySize = 5;
 		Arr = new double[MemorySize];
@@ -11,12 +9,12 @@ public:
 		MemoryArrSize = MemorySize;
 	}
 
-	~ArrayDouble() // should clean up the storage 
+UArrayDouble::~UArrayDouble() // should clean up the storage 
 	{
 		delete[] Arr;
 	}
 
-	ArrayDouble(const ArrayDouble & other) // copy ctor 
+UArrayDouble::UArrayDouble(const UArrayDouble & other) // copy ctor 
 	{
 		ArrSize = other.ArrSize;
 		MemoryArrSize = ArrSize * 2;
@@ -27,7 +25,7 @@ public:
 		}
 	}
 		
-	ArrayDouble &operator=(const ArrayDouble &other) // copy assignment
+	UArrayDouble& UArrayDouble::operator=(const UArrayDouble &other) // copy assignment
 	{
 		if (other.ArrSize > MemoryArrSize)
 		{
@@ -43,12 +41,12 @@ public:
 		return *this;
 	}
 
-	size_t Count() const // returns number of elements in array
+	size_t UArrayDouble::Count() const // returns number of elements in array
 	{
 		return ArrSize;
 	}
 
-	void Push(double d) // adds d to the end of the array, resising the storage if necessary
+	void UArrayDouble::Push(double d) // adds d to the end of the array, resising the storage if necessary
 	{
 		if (ArrSize >= MemoryArrSize)
 		{
@@ -71,28 +69,28 @@ public:
 		std::cout << "Array Push: " << d << std::endl;
 	}
 
-	double &operator[](size_t idx) // subscript operator overload to mutate the value at index idx
+	double& UArrayDouble::operator[](size_t idx) // subscript operator overload to mutate the value at index idx
 	{
 		return *(Arr + idx);
 	}
 
-	const double &operator[](size_t idx) const // read only subscript operator overload
+	const double& UArrayDouble::operator[](size_t idx) const // read only subscript operator overload
 	{
 		return *(Arr + idx);
 	}
 
-	bool IsEmpty() const // whether array has no elements
+	bool UArrayDouble::IsEmpty() const // whether array has no elements
 	{
 		return ArrSize == 0;
 	}
 
-	void Clear() // removes all elements of the array, after that IsEmpty should return true
+	void UArrayDouble::Clear() // removes all elements of the array, after that IsEmpty should return true
 	{
 		ArrSize = 0;
 		std::cout << "Array Clear " << std::endl;
 	}
 
-	void PrintInfo()
+	void UArrayDouble::PrintInfo()
 	{
 		std::cout << "ArrSize: " << ArrSize << std::endl;
 		std::cout << "MemorySizeArr: " << MemoryArrSize << std::endl;
@@ -103,16 +101,9 @@ public:
 		std::cout << std::endl;
 	}
 
-private:
-	double *Arr; 
-	size_t ArrSize;
-	size_t MemoryArrSize;
-	size_t NewMemoryArr;
-};
-
 int main()
 {
-	ArrayDouble Array;
+	UArrayDouble Array;
 
 	Array.PrintInfo();
 	Array.Push(5);
@@ -125,7 +116,10 @@ int main()
 	Array.PrintInfo();
 	Array.IsEmpty();
 	Array.PrintInfo();
-	ArrayDouble Array2;
+	std::cout<<std::endl << std::endl;
+
+	UArrayDouble Array2;
+
 	Array2.PrintInfo();
 	Array2.Push(9);
 	Array2.PrintInfo();
